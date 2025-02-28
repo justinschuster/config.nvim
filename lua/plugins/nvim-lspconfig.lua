@@ -11,4 +11,23 @@ return {
 	-- Allows to use nvim-cmp stuff
 	'hrsh7th/cmp-nvim-lsp',
     },
+    config = function()
+	local servers = { 
+	    lua_ls = {
+		settings = {
+		    Lua = {
+			completion = {
+			    callSnippet = 'Replace',
+			},
+		    },
+		},
+	    },
+	}
+
+	local ensure_installed = vim.tbl_keys(servers or {})
+	vim.list_extend(ensure_installed, {
+	    'stylua',
+	})
+	require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+    end,
 }
